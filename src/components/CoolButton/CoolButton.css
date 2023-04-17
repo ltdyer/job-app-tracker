@@ -1,0 +1,14 @@
+.cool {
+  width: 4.375em;
+  height: 1.875em;
+  border-radius: 0.500em;
+  background-color: darkviolet;
+  color: white;
+  box-shadow: 0.625em 0.313em 0.313em rgb(111, 107, 107)
+}
+
+.cool:hover {
+  background-color: rgba(148, 0, 211, 0.684);
+  cursor: pointer;
+  transition: 0.7s;
+}
