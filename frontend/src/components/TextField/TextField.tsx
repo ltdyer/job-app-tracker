@@ -11,7 +11,7 @@ export const TextField = ({label, onChange}: ITextFieldProps) => {
   const [textValue, setTextValue] = useState("");
   
   useEffect(() => {
-    if (onChange) {
+    if (textValue && onChange) {
       onChange(textValue);
     }
   }, [onChange, textValue]);

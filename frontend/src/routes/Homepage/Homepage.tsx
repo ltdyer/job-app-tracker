@@ -48,7 +48,7 @@ export const Homepage = () => {
       </div>
       <div className="submit-button">
         <CoolButton buttonText="Click!" 
-        onClick={() => handleAdd()}></CoolButton>
+        onClick={handleAdd}></CoolButton>
       </div>
     </div>
   )
