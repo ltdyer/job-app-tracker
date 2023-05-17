@@ -1,15 +1,17 @@
 .text-field-encompasser {
   padding: 0.313em;
+  display: flex;
+  flex-direction: column;
 }
 
-#textField {
+input[id^='textField'] {
   border: 0.188em solid lightgray;
   border-radius: 1.563em;
-  padding: 0.125em;
+  padding: 0.565em;
   margin-top: 0.313em;
 }
 
-#textField:focus {
+input[id^='textField']:focus {
   border: 0.188em solid black;
   border-radius: 1.563em;
 }

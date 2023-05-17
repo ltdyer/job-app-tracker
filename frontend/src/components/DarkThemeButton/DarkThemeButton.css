@@ -1,0 +1,8 @@
+.dark-box {
+  height: 2.0em;
+  width: fit-content;
+  border: 0.5em thick rgb(253, 253, 253);
+  padding: 1em;
+  margin: 1em;
+  margin-left: auto;
+}

@@ -2,26 +2,22 @@ import MaterialReactTable from "material-react-table";
 import type { MRT_ColumnDef } from "material-react-table";
 import { useMemo, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { CoolButton } from "../../components";
+import { CoolButton, DarkThemeButton } from "../../components";
 import './SavedJobsPage.css';
-
-enum Status {
-  Waiting,
-  Accepted,
-  Rejected
-}
-interface Job {
-  company: string,
-  status: Status,
-  title: string
-}
+import { Job } from "../../types/Job";
+import { useThemes } from "../../hooks/useThemes";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 export const SavedJobsPage = () => {
 
-  const [ data, setData ] = useState<Job[]>();
+  const [ data, setData ] = useState<Job[]>([]);
   const navigate = useNavigate();
-
-  // check our notepad on desktop - idk if this is even the way to use mongodb directly in react. should probably research
+  const { useTheme } = useThemes();
+  const darkTheme = useTheme();
+  const darkThemeStyle = {
+    backgroundColor: darkTheme ? '#1B1B1B' : '#FFF',
+    color: darkTheme ? '#FFF' : "#000" 
+  }
 
   const callApiCallback = useCallback(async () => {
     try {
@@ -31,7 +27,8 @@ export const SavedJobsPage = () => {
         return results;
       } else {
         console.log("should error");
-        throw new Error(response.statusText);
+        const errorText = await response.text();
+        throw new Error(errorText);
       }
     } catch (error) {
       // should be caught from 500 error but isn't
@@ -43,16 +40,27 @@ export const SavedJobsPage = () => {
 
   useEffect(() => {
     callApiCallback()
-      .then((results) => {
+      .then((results: Job[]) => {
+        // why is it letting us do this??
+        console.log(results);
         setData(results);
-        console.log("done calling api in use effect")
       })
       .catch(err => { 
         alert(err); 
       });
   }, [callApiCallback]);
 
+  const tableColoring = 
+    createTheme({
+      palette: {
+        mode: darkTheme ? 'dark' : 'light'
+        // background: {
+        //   default: darkThemeStyle.backgroundColor
+        // }
+      },
 
+    })
+  
 
   const columns = useMemo<MRT_ColumnDef<Job>[]>(
     () => [
@@ -73,15 +81,19 @@ export const SavedJobsPage = () => {
 
     // should definitely add a total jobs counter
   return (
-    <>
-      <MaterialReactTable 
-        columns={columns} 
-        data={data || []} 
-      />
+    <div style={darkThemeStyle}>
+      <ThemeProvider theme={tableColoring}>
+        <MaterialReactTable 
+          columns={columns} 
+          data={data || []} 
+        />
+      </ThemeProvider>
+      
       <div className="back-button-row">
         <CoolButton buttonText="Back" onClick={() => navigate("/")}></CoolButton>
+        <DarkThemeButton/>
       </div>
-    </>
+    </div>
 
   )
 }

@@ -9,21 +9,18 @@ interface ITextFieldProps {
 
 export const TextField = ({label, onChange}: ITextFieldProps) => {
   const [textValue, setTextValue] = useState("");
-  
-  useEffect(() => {
-    if (textValue && onChange) {
-      onChange(textValue);
-    }
-  }, [onChange, textValue]);
 
   const getValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTextValue(e.target.value);
+    if (onChange) {
+      onChange(e.target.value);
+    }
   }
 
   return (
     <div className="text-field-encompasser">
-      <label htmlFor={"textField"}>{label}: </label>
-      <input type="text" id={"textField"} onChange={getValue} value={textValue} />
+      <label htmlFor={`textField${label}`}>{label}: </label>
+      <input type="text" id={`textField${label}`} onChange={getValue} value={textValue} />
     </div>
 
   )

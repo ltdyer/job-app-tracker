@@ -1,10 +1,12 @@
 .cool {
-  width: 4.375em;
+  width: fit-content;
   height: 1.875em;
   border-radius: 0.500em;
+  text-align: center;
   background-color: darkviolet;
   color: white;
-  box-shadow: 0.625em 0.313em 0.313em rgb(111, 107, 107)
+  box-shadow: 0.625em 0.313em 0.313em rgb(111, 107, 107);
+  margin: 1.500em;
 }
 
 .cool:hover {
